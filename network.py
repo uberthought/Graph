@@ -41,7 +41,7 @@ class DNN:
         # loss = self.sess.run(self.train_loss, feed_dict=feed_dict)
         loss = 1000
         i = 0
-        while i < 10000 and loss > .1:
+        while i < 10000 and loss > 10:
         # while i < 100:
             i += 1
             loss, _ = self.sess.run([self.train_loss, self.train_step], feed_dict=feed_dict)
