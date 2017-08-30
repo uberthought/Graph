@@ -8,7 +8,7 @@ from random import randint
 class Graph:
 
     def __init__(self):
-        self.state_size = 5
+        self.state_size = 3
         self.action_size = 2
         self.time = 0
         self.interval = 20
@@ -37,15 +37,15 @@ class Graph:
 
         if x == 1 and self.owned:
             self.owned = False
-            self.score += self.spot() - (self.price + 0.01)
+            self.score += self.spot() - self.price
 
         self.time += 1
 
     def spot(self):
-        return math.fabs(math.sin(math.pi * 2 * (self.time + self.offset) / self.interval)) * 100
+        return math.fabs(math.sin(math.pi * 2 * (self.time + self.offset) / self.interval))
 
     def spot_at(self, x):
-        return math.fabs(math.sin(math.pi * 2 * (x + self.offset) / self.interval)) * 100
+        return math.fabs(math.sin(math.pi * 2 * (x + self.offset) / self.interval))
 
     def is_finished(self):
         return self.time >= self.interval

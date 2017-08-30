@@ -16,10 +16,10 @@ class DNN:
         self.hidden1 = tf.layers.dense(inputs=self.noise, units=state_size, activation=tf.nn.tanh)
         self.dropout1 = tf.nn.dropout(self.hidden1, self.keep_prob)
 
-        # self.hidden2 = tf.layers.dense(inputs=self.dropout1, units=state_size, activation=tf.nn.tanh)
-        # self.dropout2 = tf.nn.dropout(self.hidden2, self.keep_prob)
+        self.hidden2 = tf.layers.dense(inputs=self.dropout1, units=state_size, activation=tf.nn.tanh)
+        self.dropout2 = tf.nn.dropout(self.hidden2, self.keep_prob)
 
-        self.prediction = tf.layers.dense(inputs=self.dropout1, units=action_size)
+        self.prediction = tf.layers.dense(inputs=self.dropout2, units=action_size)
 
         self.expected = tf.placeholder(tf.float32, shape=(None, action_size))
 
@@ -37,11 +37,11 @@ class DNN:
             self.saver.restore(self.sess, self.path)
 
     def train(self, X, Y):
-        feed_dict = {self.input_layer: X, self.expected: Y, self.keep_prob: .8, self.stddev: 0.01}
+        feed_dict = {self.input_layer: X, self.expected: Y, self.keep_prob: .7, self.stddev: 0.01}
         # loss = self.sess.run(self.train_loss, feed_dict=feed_dict)
         loss = 1000
         i = 0
-        while i < 10000 and loss > 10:
+        while i < 10000 and loss > .01:
         # while i < 100:
             i += 1
             loss, _ = self.sess.run([self.train_loss, self.train_step], feed_dict=feed_dict)

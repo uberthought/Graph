@@ -69,7 +69,7 @@ for i in range(10000000):
     actions = dnn.run([state0])
     action = np.argmax(actions)
 
-    if randint(0, 10) == 0:
+    if randint(0, 25) == 0:
         moves = graph.moves()
         action = np.random.choice(moves, 1)
 
@@ -93,7 +93,7 @@ for i in range(10000000):
         # add old experiences
 
         if len(old_experiences) >= 0:
-            random_old_experiences = np.random.choice(old_experiences, len(experiences) * 4).tolist()
+            random_old_experiences = np.random.choice(old_experiences, len(experiences) * 10).tolist()
             experiences = experiences + random_old_experiences
 
         # train
